@@ -35,4 +35,4 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 .env
-.sessions_ds.json
+sessions_ds.json

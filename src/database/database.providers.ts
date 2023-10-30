@@ -3,7 +3,7 @@
 // export const databaseProvider = [{
 //     provide: 'SEQUELIZE',
 //     useFactory: async () => {
-//         const config = 
+//         const config =
 //         const sequelize = new Sequelize(config);
 //         sequelize.addModels
 //     }

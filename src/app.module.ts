@@ -1,12 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
-import { TelegrafModule } from 'nestjs-telegraf';
+import { Scene, TelegrafModule } from 'nestjs-telegraf';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import configurations from './config/config';
-import { TelegramUser } from './Sequelize models/TelegramUser.model';
+import { TelegramUser } from './telegram-user/entities/telegram-user.entity';
 import LocalSession from 'telegraf-session-local';
 import { AppUpdate } from './app.update';
+import { Scenes } from 'telegraf';
+import { RegistrationWizard } from './scenes/registration.scene';
+import { getSequelizeConfig } from './config/sequelize.config';
 
 @Module({
     imports: [
@@ -17,31 +20,20 @@ import { AppUpdate } from './app.update';
         SequelizeModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
-            useFactory: (configService: ConfigService) => ({
-                dialect: 'postgres',
-                host: configService.get('db_host'),
-                port: configService.get('db_port'),
-                username: configService.get('db_user'),
-                password: configService.get('db_password'),
-                database: configService.get('db_name'),
-                models: [TelegramUser],
-                autoLoadModels: true,
-            }),
+            useFactory: getSequelizeConfig,
         }),
         TelegrafModule.forRootAsync({
-            imports: [ConfigModule],
-            inject: [ConfigService],
             useFactory: (configService: ConfigService) => ({
                 middlewares: [
                     new LocalSession({
                         database: 'sessions_db.json',
                     }).middleware(),
+                    new Scenes.Stage().middleware(),
                 ],
                 token: configService.get('tg_token'),
             }),
         }),
     ],
-    // controllers: [],
-    providers: [AppService, AppUpdate],
+    providers: [AppService, AppUpdate, RegistrationWizard],
 })
 export class AppModule {}
