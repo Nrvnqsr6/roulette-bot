@@ -1,3 +1,3 @@
 export interface iAnimeAPI {
-    getUserAnimeList(userID)
+    getUserAnimeList(userID);
 }

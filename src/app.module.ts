@@ -10,6 +10,7 @@ import { AppUpdate } from './app.update';
 import { Scenes } from 'telegraf';
 import { RegistrationWizard } from './scenes/registration.scene';
 import { getSequelizeConfig } from './config/sequelize.config';
+import { AnimelistApiModule } from './animelist-api/animelist-api.module';
 
 @Module({
     imports: [
@@ -33,6 +34,7 @@ import { getSequelizeConfig } from './config/sequelize.config';
                 token: configService.get('tg_token'),
             }),
         }),
+        AnimelistApiModule,
     ],
     providers: [AppService, AppUpdate, RegistrationWizard],
 })
