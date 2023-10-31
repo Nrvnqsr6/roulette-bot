@@ -2,6 +2,6 @@ import { Module } from '@nestjs/common';
 import { AnimelistApiService } from './animelist-api.service';
 
 @Module({
-  providers: [AnimelistApiService]
+    providers: [AnimelistApiService],
 })
 export class AnimelistApiModule {}
