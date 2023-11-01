@@ -11,7 +11,8 @@ import { Scenes } from 'telegraf';
 import { RegistrationWizard } from './scenes/registration.scene';
 import { getSequelizeConfig } from './config/sequelize.config';
 import { AnimelistApiModule } from './animelist-api/animelist-api.module';
-import { RecomendationWizard } from './scenes/recomendation-making.scene';
+import { RecommendationWizard } from './scenes/recommendation-making.scene';
+import { TelegramUserModule } from './telegram-user/telegram-user.module';
 
 @Module({
     imports: [
@@ -34,11 +35,14 @@ import { RecomendationWizard } from './scenes/recomendation-making.scene';
                     }).middleware(),
                     new Scenes.Stage().middleware(),
                 ],
+                botName: "Roulette-bot",
                 token: configService.get('tg_token'),
+                include: [TelegramUserModule, AnimelistApiModule],
             }),
         }),
         AnimelistApiModule,
+        TelegramUserModule,
     ],
-    providers: [AppService, AppUpdate, RegistrationWizard, RecomendationWizard],
+    providers: [AppService, AppUpdate, RegistrationWizard],
 })
 export class AppModule {}
