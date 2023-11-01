@@ -3,7 +3,7 @@ import { TelegramUserService } from 'src/telegram-user/telegram-user.service';
 import { Scenes } from 'telegraf';
 
 @Wizard('recomendation-making')
-export class RecomendationWizard {
+export class RecommendationWizard {
     constructor(private readonly telegramUser: TelegramUserService) {}
     @WizardStep(1)
     async onEnter(@Ctx() ctx: Scenes.WizardContext) {
@@ -22,8 +22,8 @@ export class RecomendationWizard {
             ctx.reply
             ctx.scene.reenter();
         }
-            console.log("added")
-        else 
+        console.log("added")
+        //const user = this.telegramUser.update(ctx.chat.id)
         ctx.scene.leave();
     }
 

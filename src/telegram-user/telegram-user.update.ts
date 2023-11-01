@@ -1,36 +1,28 @@
 import { Context, Markup, Scenes, Telegraf } from 'telegraf';
-import { Action, Command, Hears, InjectBot, Start, Update } from 'nestjs-telegraf';
+import { Action, Command, Ctx, Hears, InjectBot, Start, TelegrafExecutionContext, Update } from 'nestjs-telegraf';
 import { TelegramUserService } from './telegram-user.service';
 import { UpdateTelegramUserDto } from './dto/update-telegram-user.dto';
+import { UpdateType as TelegrafUpdateType } from 'telegraf/typings/telegram-types';
+import { UpdateType } from 'src/common/update-type.decorator';
+import { ExecutionContext } from '@nestjs/common';
 
 @Update()
-export class UserUpdate {
+export class TelegramUserUpdate {
     constructor(
-        @InjectBot() private readonly bot: Telegraf<Context>,
+        //@InjectBot("Roulette-bot")
         //private readonly userLocalSession: LocalSession<TelegramUser>,
-        private readonly userService: TelegramUserService,
+        //private readonly userService: TelegramUserService,
     ) {}
 
-    // @Start()
-    // async startCommand(ctx: Scenes.SceneContext) {
-    //     ctx.scene.enter('registration');
-    // }
-
-    // @Command('menu')
-    // async getMenuCommand(ctx: Context) {
-    //     ctx.reply('Что вы хотите сделать?', keyboard);
-    // }
-
-    // @Hears(['Выбрать для рекомендации'])
-    // async createRecomendation(updateTelegramUserDto: UpdateTelegramUserDto, ctx: Scenes.SceneContext){
-    //     ctx.reply("qwe");
-    //     const res = await ctx.scene.enter('recomendation-making');
-    //     console.log(res);
-    // }
+    @Hears(['Выбрать для рекомендации'])
+    async onCreateRecomendation(updateTelegramUserDto: UpdateTelegramUserDto, @Ctx() ctx: Scenes.SceneContext){
+        ctx.scene.enter('recomendation-making');
+        // const a = await ctx;
+        // console.log(a);
+        //console.log("heard")
+        //const res = ctx.scene.enter('recomendation-making');
+        //console.log(res);
+    }
 }
 
-const keyboard = Markup.keyboard([
-    ['Выбрать для рекомендации'],
-    ['Получить рекомендацию'],
-    ['Изменить трекер'],
-]);
+

@@ -1,5 +1,5 @@
 export enum Animelist {
-    Mal = 'my anime list',
+    Mal = 'mal',
     Shiki = 'shikimori',
     Anilist = 'anilist',
 }

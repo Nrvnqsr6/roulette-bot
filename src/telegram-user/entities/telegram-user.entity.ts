@@ -6,20 +6,21 @@ import {
     AllowNull,
     DataType,
 } from 'sequelize-typescript';
+import { Animelist } from 'src/enums/animelists';
 
 @Table({
     timestamps: false,
     tableName: 'telegram_users',
 })
 export class TelegramUser extends Model {
+
     @PrimaryKey
-    @AllowNull(false)
     @Column(DataType.INTEGER)
-    TelegramUserID: string;
+    TelegramUserID: number;
 
     @AllowNull(false)
     @Column(DataType.STRING)
-    UserList: string;
+    UserListSource: Animelist;
 
     @AllowNull(false)
     @Column(DataType.STRING)

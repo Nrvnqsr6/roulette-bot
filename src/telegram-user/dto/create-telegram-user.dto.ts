@@ -1,15 +1,15 @@
-import { IsInt } from 'sequelize-typescript';
+import { isInt } from 'class-validator';
 import { Animelist } from 'src/enums/animelists';
 
 export class CreateTelegramUserDto {
-    @IsInt
+
     readonly TelegramUserID: number;
 
     readonly UserListSource: Animelist;
 
     readonly UserListID: string;
 
-    readonly RecivedAnime?: string;
+    // readonly RecivedAnime?: string;
 
-    readonly GivenAnime?: string;
+    // readonly GivenAnime?: string;
 }
