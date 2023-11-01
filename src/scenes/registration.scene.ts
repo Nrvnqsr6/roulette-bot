@@ -20,8 +20,8 @@ export class RegistrationWizard {
     @WizardStep(2)
     async onService(@Ctx() ctx: Scenes.WizardContext) {
         ctx.reply('Ваш ID на этом сервисе');
-        if ('data' in ctx.callbackQuery)
-            ctx.wizard.state['service'] = ctx.callbackQuery.data;
+        if ('data' in ctx.callbackQuery) {
+        { ctx.wizard.state.service = ctx.callbackQuery.data; }
         ctx.wizard.next();
     }
 
@@ -30,8 +30,8 @@ export class RegistrationWizard {
         @Ctx() ctx: Scenes.WizardContext,
         @Message() msg: { text: string },
     ) {
-        ctx.wizard.state['user_id'] = msg.text;
-        //create user
+        ctx.wizard.state.user_id = msg.text;
+        // create user
         ctx.scene.leave();
     }
 }

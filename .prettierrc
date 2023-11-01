@@ -3,5 +3,6 @@
   "trailingComma": "all",
   "tabWidth": 4,
   "useTabs": false,
-  "endOfLine": "auto"
+  "endOfLine": "auto",
+  "curly": "all"
 }

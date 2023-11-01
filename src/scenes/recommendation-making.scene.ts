@@ -17,18 +17,19 @@ export class RecommendationWizard {
         @Ctx() ctx: Scenes.WizardContext,
         @Message() msg: { text: string },
     ) {
-        if (!this.verifyExisting(msg.text))
-        {
-            ctx.reply
+        if (!this.verifyExisting(msg.text)) {
+            ctx.reply;
             ctx.scene.reenter();
         }
-        console.log("added")
-        //const user = this.telegramUser.update(ctx.chat.id)
+        console.log('added');
+        // const user = this.telegramUser.update(ctx.chat.id)
         ctx.scene.leave();
     }
 
     private verifyExisting(anime: string): boolean {
-        if (anime) return true;
-        else return false;
+        if (anime) {
+            return true;
+        }
+        return false;
     }
 }

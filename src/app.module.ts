@@ -28,17 +28,19 @@ import { TelegramUserModule } from './telegram-user/telegram-user.module';
         TelegrafModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
-            useFactory: (configService: ConfigService) => ({
-                middlewares: [
-                    new LocalSession({
-                        database: 'sessions_db.json',
-                    }).middleware(),
-                    new Scenes.Stage().middleware(),
-                ],
-                botName: "Roulette-bot",
-                token: configService.get('tg_token'),
-                include: [TelegramUserModule, AnimelistApiModule],
-            }),
+            useFactory: (configService: ConfigService) => {
+                return {
+                    middlewares: [
+                        new LocalSession({
+                            database: 'sessions_db.json',
+                        }).middleware(),
+                        new Scenes.Stage().middleware(),
+                    ],
+                    botName: 'Roulette-bot',
+                    token: configService.get('tg_token'),
+                    include: [TelegramUserModule, AnimelistApiModule],
+                };
+            },
         }),
         AnimelistApiModule,
         TelegramUserModule,

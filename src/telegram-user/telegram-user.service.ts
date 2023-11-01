@@ -9,7 +9,7 @@ export class TelegramUserService {
     }
 
     findAll() {
-        return `This action returns all telegramUser`;
+        return 'This action returns all telegramUser';
     }
 
     findOne(id: number) {

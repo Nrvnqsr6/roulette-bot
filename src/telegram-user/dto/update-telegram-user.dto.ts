@@ -8,7 +8,7 @@ export class UpdateTelegramUserDto extends PartialType(CreateTelegramUserDto) {
 
     readonly UserListID?: string;
 
-    //@isExisitingAnime
+    // @isExisitingAnime
     readonly RecivedAnime?: string;
 
     readonly GivenAnime?: string;

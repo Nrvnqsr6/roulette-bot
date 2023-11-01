@@ -13,7 +13,6 @@ import { Animelist } from 'src/enums/animelists';
     tableName: 'telegram_users',
 })
 export class TelegramUser extends Model {
-
     @PrimaryKey
     @Column(DataType.INTEGER)
     TelegramUserID: number;

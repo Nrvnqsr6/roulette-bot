@@ -6,7 +6,7 @@ import { MalAPI } from './mal.api';
 @Injectable()
 export class AnimelistApiService {
     private apiWrapper: iAnimeAPI;
-    //constructor();
+    // constructor();
     GetUserAnimeList(userListID: number, userListSource: Animelist) {
         this.setAnimeList(userListSource);
         return this.apiWrapper.getUserAnimeList(userListID);
