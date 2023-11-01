@@ -11,6 +11,7 @@ import { Scenes } from 'telegraf';
 import { RegistrationWizard } from './scenes/registration.scene';
 import { getSequelizeConfig } from './config/sequelize.config';
 import { AnimelistApiModule } from './animelist-api/animelist-api.module';
+import { RecomendationWizard } from './scenes/recomendation-making.scene';
 
 @Module({
     imports: [
@@ -18,12 +19,14 @@ import { AnimelistApiModule } from './animelist-api/animelist-api.module';
             isGlobal: true,
             load: [configurations],
         }),
-        SequelizeModule.forRootAsync({
+        // SequelizeModule.forRootAsync({
+        //     imports: [ConfigModule],
+        //     inject: [ConfigService],
+        //     useFactory: getSequelizeConfig,
+        // }),
+        TelegrafModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],
-            useFactory: getSequelizeConfig,
-        }),
-        TelegrafModule.forRootAsync({
             useFactory: (configService: ConfigService) => ({
                 middlewares: [
                     new LocalSession({
@@ -36,6 +39,6 @@ import { AnimelistApiModule } from './animelist-api/animelist-api.module';
         }),
         AnimelistApiModule,
     ],
-    providers: [AppService, AppUpdate, RegistrationWizard],
+    providers: [AppService, AppUpdate, RegistrationWizard, RecomendationWizard],
 })
 export class AppModule {}
