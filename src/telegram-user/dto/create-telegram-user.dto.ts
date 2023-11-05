@@ -1,4 +1,3 @@
-import { isInt } from 'class-validator';
 import { Animelist } from 'src/enums/animelists';
 
 export class CreateTelegramUserDto {
@@ -7,8 +6,4 @@ export class CreateTelegramUserDto {
     readonly UserListSource: Animelist;
 
     readonly UserListID: string;
-
-    // readonly RecivedAnime?: string;
-
-    // readonly GivenAnime?: string;
 }
