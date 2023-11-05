@@ -1,8 +1,11 @@
+import { Inject } from '@nestjs/common';
 import { Ctx, Message, Wizard, WizardStep } from 'nestjs-telegraf';
+import { TelegramUserService } from 'src/telegram-user/telegram-user.service';
 import { Scenes } from 'telegraf';
 
 @Wizard('registration')
 export class RegistrationWizard {
+    //constructor(@Inject(TelegramUserService))
     @WizardStep(1)
     async onEnter(@Ctx() ctx: Scenes.WizardContext) {
         ctx.reply('Сервис для отслеживания аниме, которым вы пользуетесь', {
@@ -21,8 +24,9 @@ export class RegistrationWizard {
     async onService(@Ctx() ctx: Scenes.WizardContext) {
         ctx.reply('Ваш ID на этом сервисе');
         if ('data' in ctx.callbackQuery) {
-        { ctx.wizard.state.service = ctx.callbackQuery.data; }
-        ctx.wizard.next();
+            ctx.wizard.state['service'] = ctx.callbackQuery.data;
+            ctx.wizard.next();
+        }
     }
 
     @WizardStep(3)
@@ -30,7 +34,7 @@ export class RegistrationWizard {
         @Ctx() ctx: Scenes.WizardContext,
         @Message() msg: { text: string },
     ) {
-        ctx.wizard.state.user_id = msg.text;
+        ctx.wizard.state['user_list_id'] = msg.text;
         // create user
         ctx.scene.leave();
     }

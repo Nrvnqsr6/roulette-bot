@@ -1,10 +1,11 @@
+import { Inject } from '@nestjs/common';
 import { Ctx, Message, Wizard, WizardStep } from 'nestjs-telegraf';
 import { TelegramUserService } from 'src/telegram-user/telegram-user.service';
 import { Scenes } from 'telegraf';
 
 @Wizard('recomendation-making')
 export class RecommendationWizard {
-    constructor(private readonly telegramUser: TelegramUserService) {}
+    //constructor(@Inject(TelegramUserService) telegramUserService) {}
     @WizardStep(1)
     async onEnter(@Ctx() ctx: Scenes.WizardContext) {
         ctx.reply(
@@ -22,7 +23,7 @@ export class RecommendationWizard {
             ctx.scene.reenter();
         }
         console.log('added');
-        // const user = this.telegramUser.update(ctx.chat.id)
+        ctx.wizard.state['anime'] = msg.text;
         ctx.scene.leave();
     }
 
