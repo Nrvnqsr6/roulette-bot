@@ -1,6 +1,6 @@
 import { AppService } from './app.service';
 import { Context, Markup, Scenes, Telegraf } from 'telegraf';
-import { Command, InjectBot, Start, Update } from 'nestjs-telegraf';
+import { Command, Ctx, Hears, InjectBot, Start, Update } from 'nestjs-telegraf';
 //import LocalSession from 'telegraf-session-local';
 // import { TelegramUser } from './telegram-user/entities/telegram-user.entity';
 
