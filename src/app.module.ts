@@ -38,7 +38,11 @@ import { TelegramUserModule } from './telegram-user/telegram-user.module';
                     ],
                     botName: 'Roulette-bot',
                     token: configService.get('tg_token'),
-                    include: [TelegramUserModule, AnimelistApiModule],
+                    // include: [
+                    //     TelegramUserModule,
+                    //     AnimelistApiModule,
+                    //     AppUpdate,
+                    // ],
                 };
             },
         }),
