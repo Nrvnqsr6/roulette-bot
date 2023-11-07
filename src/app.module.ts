@@ -20,11 +20,11 @@ import { TelegramUserModule } from './telegram-user/telegram-user.module';
             isGlobal: true,
             load: [configurations],
         }),
-        // SequelizeModule.forRootAsync({
-        //     imports: [ConfigModule],
-        //     inject: [ConfigService],
-        //     useFactory: getSequelizeConfig,
-        // }),
+        SequelizeModule.forRootAsync({
+            imports: [ConfigModule],
+            inject: [ConfigService],
+            useFactory: getSequelizeConfig,
+        }),
         TelegrafModule.forRootAsync({
             imports: [ConfigModule],
             inject: [ConfigService],

@@ -5,6 +5,7 @@ import {
     PrimaryKey,
     AllowNull,
     DataType,
+    Unique,
 } from 'sequelize-typescript';
 import { Animelist } from 'src/enums/animelists';
 
@@ -12,14 +13,14 @@ import { Animelist } from 'src/enums/animelists';
     timestamps: false,
     tableName: 'telegram_users',
 })
-export class TelegramUser extends Model {
+export class TelegramUser extends Model<TelegramUser> {
     @PrimaryKey
-    @Column(DataType.INTEGER)
+    @Column(DataType.STRING)
     TelegramUserID: number;
 
     @AllowNull(false)
     @Column(DataType.STRING)
-    UserListSource: Animelist;
+    UserListSource: string;
 
     @AllowNull(false)
     @Column(DataType.STRING)

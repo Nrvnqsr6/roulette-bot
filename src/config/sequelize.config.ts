@@ -12,7 +12,7 @@ export const getSequelizeConfig = async (
         username: configService.get('db_user'),
         password: configService.get('db_password'),
         database: configService.get('db_name'),
-        models: [TelegramUser],
+        //models: [TelegramUser],
         autoLoadModels: true,
         synchronize: true,
     };

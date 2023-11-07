@@ -1,9 +1,23 @@
 import { Animelist } from 'src/enums/animelists';
 
 export class CreateTelegramUserDto {
-    TelegramUserID: number;
+    readonly TelegramUserID: number;
 
-    UserListSource: Animelist;
+    readonly UserListSource: Animelist;
 
-    UserListID: string;
+    readonly UserListID: string;
+
+    readonly RecivedAnime?: string;
+
+    readonly GivenAnime?: string;
+
+    constructor(
+        telegramUserId: number,
+        userListSource: Animelist,
+        userListID: string,
+    ) {
+        this.TelegramUserID = telegramUserId;
+        this.UserListSource = userListSource;
+        this.UserListID = userListID;
+    }
 }
