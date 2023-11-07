@@ -12,7 +12,7 @@ export class TelegramUserUpdate {
     @Start()
     async startCommand(ctx: Scenes.SceneContext) {
         ctx.session = null;
-        if (this.telegramUserService.findOne(ctx.from.id))
+        if (await this.telegramUserService.findOne(ctx.from.id))
             return 'Вы уже зарегистрованы';
         ctx.scene.enter('registration');
     }
