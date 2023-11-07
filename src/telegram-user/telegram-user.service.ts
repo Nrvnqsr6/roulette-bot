@@ -1,26 +1,31 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTelegramUserDto } from './dto/create-telegram-user.dto';
 import { UpdateTelegramUserDto } from './dto/update-telegram-user.dto';
+import { InjectModel } from '@nestjs/sequelize';
+import { TelegramUser } from './entities/telegram-user.entity';
 
 @Injectable()
 export class TelegramUserService {
-    create(createTelegramUserDto: CreateTelegramUserDto) {
-        return 'This action adds a new telegramUser';
+    constructor(
+        @InjectModel(TelegramUser)
+        private telegramUserModel: typeof TelegramUser,
+    ) {}
+
+    create(
+        createTelegramUserDto: CreateTelegramUserDto,
+    ): Promise<TelegramUser> {
+        return this.telegramUserModel.create(createTelegramUserDto);
     }
 
-    findAll() {
-        return 'This action returns all telegramUser';
+    findOne(id: number): Promise<TelegramUser> {
+        return this.telegramUserModel.findByPk(id);
     }
 
-    findOne(id: number) {
-        return `This action returns a #${id} telegramUser`;
-    }
-
-    update(id: number, updateTelegramUserDto: UpdateTelegramUserDto) {
-        return `This action updates a #${id} telegramUser`;
-    }
-
-    remove(id: number) {
-        return `This action removes a #${id} telegramUser`;
+    async update(
+        id: number,
+        updateTelegramUserDto: UpdateTelegramUserDto,
+    ): Promise<TelegramUser> {
+        const model = await this.telegramUserModel.findByPk(id);
+        return (await model.update(updateTelegramUserDto)).save();
     }
 }
