@@ -15,7 +15,7 @@ import { Animelist } from 'src/enums/animelists';
 })
 export class TelegramUser extends Model<TelegramUser> {
     @PrimaryKey
-    @Column(DataType.STRING)
+    @Column(DataType.INTEGER)
     TelegramUserID: number;
 
     @AllowNull(false)
