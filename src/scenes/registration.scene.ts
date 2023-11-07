@@ -1,10 +1,11 @@
 import { Ctx, Message, On, Wizard, WizardStep } from 'nestjs-telegraf';
+import { CreateTelegramUserDto } from 'src/telegram-user/dto/create-telegram-user.dto';
 import { TelegramUserService } from 'src/telegram-user/telegram-user.service';
 import { Scenes } from 'telegraf';
 
 @Wizard('registration')
 export class RegistrationWizard {
-    //constructor(private readonly telegramUserService: TelegramUserService) {}
+    constructor(private readonly telegramUserService: TelegramUserService) {}
     @WizardStep(1)
     async onEnter(@Ctx() ctx: Scenes.WizardContext) {
         ctx.reply('Сервис для отслеживания аниме, которым вы пользуетесь', {
@@ -28,16 +29,21 @@ export class RegistrationWizard {
         } else ctx.scene.leave();
     }
 
-    //@On('text')
+    @On('text')
     @WizardStep(3)
     async onUserId(
         @Ctx() ctx: Scenes.WizardContext,
         @Message() msg: { text: string },
     ) {
         ctx.session['user_list_id'] = msg.text;
-        console.log(ctx.session);
+        const telegramUserDto = new CreateTelegramUserDto(
+            ctx.from.id,
+            ctx.session['service'],
+            ctx.session['user_list_id'],
+        );
+        this.telegramUserService.create(telegramUserDto);
         ctx.session = null;
         ctx.scene.leave();
-        return;
+        //return;
     }
 }
