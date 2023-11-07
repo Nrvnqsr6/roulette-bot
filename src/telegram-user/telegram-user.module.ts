@@ -3,11 +3,15 @@ import { TelegramUserService } from './telegram-user.service';
 import { RecommendationWizard } from 'src/scenes/recommendation-making.scene';
 import { TelegrafModule } from 'nestjs-telegraf';
 import { TelegramUserUpdate } from './telegram-user.update';
+import { RegistrationWizard } from 'src/scenes/registration.scene';
 // import { TelegramUserController } from './telegram-user.controller';
 
 @Module({
-    imports: [],
-    // controllers: [TelegramUserController],
-    providers: [TelegramUserService, TelegramUserUpdate, RecommendationWizard],
+    providers: [
+        TelegramUserService,
+        TelegramUserUpdate,
+        RecommendationWizard,
+        RegistrationWizard,
+    ],
 })
 export class TelegramUserModule {}

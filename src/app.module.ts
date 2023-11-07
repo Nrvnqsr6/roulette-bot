@@ -49,6 +49,6 @@ import { TelegramUserModule } from './telegram-user/telegram-user.module';
         AnimelistApiModule,
         TelegramUserModule,
     ],
-    providers: [AppService, AppUpdate, RegistrationWizard],
+    providers: [AppService, AppUpdate],
 })
 export class AppModule {}
