@@ -1,11 +1,10 @@
-import { Inject } from '@nestjs/common';
-import { Ctx, Message, Wizard, WizardStep } from 'nestjs-telegraf';
+import { Ctx, Message, On, Wizard, WizardStep } from 'nestjs-telegraf';
 import { TelegramUserService } from 'src/telegram-user/telegram-user.service';
 import { Scenes } from 'telegraf';
 
 @Wizard('registration')
 export class RegistrationWizard {
-    //constructor(@Inject(TelegramUserService))
+    //constructor(private readonly telegramUserService: TelegramUserService) {}
     @WizardStep(1)
     async onEnter(@Ctx() ctx: Scenes.WizardContext) {
         ctx.reply('Сервис для отслеживания аниме, которым вы пользуетесь', {
@@ -17,25 +16,28 @@ export class RegistrationWizard {
                 ],
             },
         });
-        ctx.wizard.next();
+        await ctx.wizard.next();
     }
 
     @WizardStep(2)
     async onService(@Ctx() ctx: Scenes.WizardContext) {
         ctx.reply('Ваш ID на этом сервисе');
         if ('data' in ctx.callbackQuery) {
-            ctx.wizard.state['service'] = ctx.callbackQuery.data;
+            ctx.session['service'] = ctx.callbackQuery.data;
             ctx.wizard.next();
-        }
+        } else ctx.scene.leave();
     }
 
+    //@On('text')
     @WizardStep(3)
     async onUserId(
         @Ctx() ctx: Scenes.WizardContext,
         @Message() msg: { text: string },
     ) {
-        ctx.wizard.state['user_list_id'] = msg.text;
-        // create user
+        ctx.session['user_list_id'] = msg.text;
+        console.log(ctx.session);
+        ctx.session = null;
         ctx.scene.leave();
+        return;
     }
 }
