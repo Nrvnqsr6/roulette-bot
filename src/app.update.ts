@@ -7,15 +7,10 @@ import { Command, Ctx, Hears, InjectBot, Start, Update } from 'nestjs-telegraf';
 @Update()
 export class AppUpdate {
     constructor(
-        @InjectBot() private readonly bot: Telegraf<Context>,
+        //@InjectBot() private readonly bot: Telegraf<Context>,
         // private readonly userLocalSession: LocalSession<TelegramUser>,
-        private readonly appService: AppService,
+        //private readonly appService: AppService,
     ) {}
-
-    @Start()
-    async startCommand(ctx: Scenes.SceneContext) {
-        ctx.scene.enter('registration');
-    }
 
     @Command('menu')
     async getMenuCommand(ctx: Context) {
