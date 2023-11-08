@@ -13,11 +13,11 @@ import {
     tableName: 'telegram_users',
 })
 export class AnimeRecomendation extends Model<AnimeRecomendation> {
-    @AllowNull(true)
+    @AllowNull(false)
     @Column(DataType.STRING)
     Anime: string;
 
-    @AllowNull(true)
+    @AllowNull(false)
     @Column(DataType.STRING)
     UsersDescription: string;
 }
