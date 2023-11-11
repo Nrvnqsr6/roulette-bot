@@ -19,13 +19,7 @@ export class TelegramUserUpdate {
 
     @Hears(['Выбрать для рекомендации'])
     async onCreateRecomendation(@Ctx() ctx: Scenes.WizardContext) {
-        //Markup.removeKeyboard();
-
         ctx.session = null;
         ctx.scene.enter('recomendation-making');
-        // const updateTelegramUserDto = new UpdateTelegramUserDto();
-        // updateTelegramUserDto.GivenAnime = givenAnime;
-        // const user_id = ctx.chat.id;
-        // this.telegramUserService.update(user_id, updateTelegramUserDto);
     }
 }
