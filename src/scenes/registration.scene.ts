@@ -41,9 +41,21 @@ export class RegistrationWizard {
             ctx.session['service'],
             ctx.session['user_list_id'],
         );
-        this.telegramUserService.create(telegramUserDto);
-        ctx.session = null;
-        ctx.scene.leave();
-        //return;
+        this.telegramUserService
+            .create(telegramUserDto)
+            .then((user) => {
+                console.log(
+                    `registration of ${user.TelegramUserID} with ${user.UserListID}`,
+                );
+                ctx.session = null;
+                ctx.scene.leave();
+                return 'Регистрация прошла успешно';
+            })
+            .catch((error) => {
+                console.log(error);
+                ctx.session = null;
+                ctx.scene.leave();
+                return 'Внутренняя ошибка, попробуйте позже';
+            });
     }
 }
