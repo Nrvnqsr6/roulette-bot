@@ -7,10 +7,16 @@ import { RegistrationWizard } from 'src/scenes/registration.scene';
 import { Sequelize } from 'sequelize-typescript';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { TelegramUser } from './entities/telegram-user.entity';
+import { AnimeSuggestionModule } from 'src/anime-suggestion/anime-suggestion.module';
+import { AnimeModule } from 'src/anime-recomendation/anime.model';
 // import { TelegramUserController } from './telegram-user.controller';
 
 @Module({
-    imports: [SequelizeModule.forFeature([TelegramUser])],
+    imports: [
+        SequelizeModule.forFeature([TelegramUser]),
+        AnimeSuggestionModule,
+        AnimeModule,
+    ],
     providers: [
         TelegramUserService,
         TelegramUserUpdate,

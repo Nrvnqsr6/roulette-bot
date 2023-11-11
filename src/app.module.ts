@@ -13,6 +13,8 @@ import { getSequelizeConfig } from './config/sequelize.config';
 import { AnimelistApiModule } from './animelist-api/animelist-api.module';
 import { RecommendationWizard } from './scenes/recommendation-making.scene';
 import { TelegramUserModule } from './telegram-user/telegram-user.module';
+import { AnimeRecomendation } from './anime-recomendation/entity/anime-recomendation.entity';
+import { AnimeModule } from './anime-recomendation/anime.model';
 
 @Module({
     imports: [
@@ -47,6 +49,7 @@ import { TelegramUserModule } from './telegram-user/telegram-user.module';
             },
         }),
         AnimelistApiModule,
+        AnimeModule,
         TelegramUserModule,
     ],
     providers: [AppService, AppUpdate],

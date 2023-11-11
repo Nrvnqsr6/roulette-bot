@@ -1,16 +1,11 @@
-import { AppService } from './app.service';
-import { Context, Markup, Scenes, Telegraf } from 'telegraf';
-import { Command, Ctx, Hears, InjectBot, Start, Update } from 'nestjs-telegraf';
+import { Context, Markup } from 'telegraf';
+import { Command, Update } from 'nestjs-telegraf';
 //import LocalSession from 'telegraf-session-local';
 // import { TelegramUser } from './telegram-user/entities/telegram-user.entity';
 
 @Update()
 export class AppUpdate {
-    constructor(
-        //@InjectBot() private readonly bot: Telegraf<Context>,
-        // private readonly userLocalSession: LocalSession<TelegramUser>,
-        //private readonly appService: AppService,
-    ) {}
+    //constructor() {}
 
     @Command('menu')
     async getMenuCommand(ctx: Context) {
@@ -21,5 +16,5 @@ export class AppUpdate {
 const keyboard = Markup.keyboard([
     ['Выбрать для рекомендации'],
     ['Получить рекомендацию'],
-    ['Изменить трекер'],
+    ['Изменить настройки'],
 ]);
