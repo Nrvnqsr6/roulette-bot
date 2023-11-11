@@ -2,22 +2,28 @@ import {
     Model,
     Table,
     Column,
-    PrimaryKey,
     AllowNull,
     DataType,
-    Unique,
 } from 'sequelize-typescript';
 
 @Table({
     timestamps: false,
-    tableName: 'telegram_users',
+    tableName: 'anime_recomendation',
 })
 export class AnimeRecomendation extends Model<AnimeRecomendation> {
     @AllowNull(false)
     @Column(DataType.STRING)
-    Anime: string;
+    declare Anime: string;
 
     @AllowNull(false)
     @Column(DataType.STRING)
-    UsersDescription: string;
+    declare UsersDescription: string;
+
+    @AllowNull(false)
+    @Column(DataType.INTEGER)
+    declare OwnerID: number;
+
+    @AllowNull(true)
+    @Column(DataType.INTEGER)
+    declare RecipientID: number;
 }
