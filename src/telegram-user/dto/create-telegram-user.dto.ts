@@ -7,9 +7,11 @@ export class CreateTelegramUserDto {
 
     readonly UserListID: string;
 
-    readonly RecivedAnime?: string;
+    // readonly RecivedAnime?: number;
 
-    readonly GivenAnime?: string;
+    // readonly GivenAnime?: number;
+
+    readonly isWaitingForAnime: boolean;
 
     constructor(
         telegramUserId: number,
@@ -19,5 +21,6 @@ export class CreateTelegramUserDto {
         this.TelegramUserID = telegramUserId;
         this.UserListSource = userListSource;
         this.UserListID = userListID;
+        this.isWaitingForAnime = false;
     }
 }

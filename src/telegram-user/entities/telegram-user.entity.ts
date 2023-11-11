@@ -1,3 +1,4 @@
+import { NonAttribute } from '@sequelize/core';
 import {
     Model,
     Table,
@@ -6,31 +7,44 @@ import {
     AllowNull,
     DataType,
     Unique,
+    HasOne,
 } from 'sequelize-typescript';
-import { Animelist } from 'src/enums/animelists';
+import { AnimeRecomendation } from 'src/anime-recomendation/entity/anime-recomendation.entity';
 
 @Table({
     timestamps: false,
     tableName: 'telegram_users',
 })
-export class TelegramUser extends Model<TelegramUser> {
+export class TelegramUser extends Model<TelegramUser, AnimeRecomendation> {
     @PrimaryKey
     @Column(DataType.INTEGER)
-    TelegramUserID: number;
+    declare TelegramUserID: number;
 
     @AllowNull(false)
     @Column(DataType.STRING)
-    UserListSource: string;
+    declare UserListSource: string;
 
     @AllowNull(false)
     @Column(DataType.STRING)
-    UserListID: string;
+    declare UserListID: string;
 
     @AllowNull(true)
-    @Column(DataType.STRING)
-    ReceivedAnime: string;
+    @HasOne(() => AnimeRecomendation, {
+        foreignKey: 'RecipientID',
+        as: 'received',
+    })
+    @Column(DataType.INTEGER)
+    declare ReceivedAnime: AnimeRecomendation;
 
     @AllowNull(true)
-    @Column(DataType.STRING)
-    GivenAnime: string;
+    @HasOne(() => AnimeRecomendation, {
+        foreignKey: 'OwnerID',
+        as: 'given',
+    })
+    @Column(DataType.INTEGER)
+    declare GivenAnime: AnimeRecomendation;
+
+    @AllowNull(false)
+    @Column(DataType.BOOLEAN)
+    declare isWaitingForAnime: boolean;
 }
