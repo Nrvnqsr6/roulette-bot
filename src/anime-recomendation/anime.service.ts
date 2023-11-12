@@ -3,6 +3,8 @@ import { InjectModel } from '@nestjs/sequelize';
 import { AnimeRecomendation } from './entity/anime-recomendation.entity';
 import { CreateAnimeDto } from './dto/create-anime.dto';
 import { UpdateAnimeDto } from './dto/update-anime.dto';
+import { Sequelize } from 'sequelize-typescript';
+import { TelegramUser } from 'src/telegram-user/entities/telegram-user.entity';
 
 @Injectable()
 export class AnimeService {
@@ -17,6 +19,14 @@ export class AnimeService {
 
     findOne(id: number): Promise<AnimeRecomendation> {
         return this.animeRecomendation.findByPk(id);
+    }
+
+    findAllPending(): Promise<AnimeRecomendation[]> {
+        return this.animeRecomendation.findAll({
+            where: {
+                Pending: true,
+            },
+        });
     }
 
     async update(
