@@ -4,6 +4,12 @@
 
 This is a telegram bot that allow people to exchange recommendations for viewing various media. First of all, it is planned to implement the functionality to organize anime roulette using three most popular services (mal, anilist, shikimori).
 
+# Разработка/Development
+
+На данный момент проект закончен на 30%. Завершены модули работы с бд и клиентом телеграма, а также сцены регистрации и добавления.
+
+At the moment the project is 30% complete. The modules for working with the database (also models and dto), telegram client (updates), registration and recomendation adding are completed.
+
 # Используемые технологии/Built with
 
 1. Typescript
