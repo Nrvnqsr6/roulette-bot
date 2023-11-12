@@ -9,5 +9,5 @@ export class UpdateAnimeDto extends PartialType(CreateAnimeDto) {
     // @MaxLength(200)
     UsersDescription?: string;
 
-    RecipientID?: number;
+    Pending?: boolean;
 }

@@ -7,11 +7,11 @@ export class CreateAnimeDto {
     // @MaxLength(200)
     readonly UsersDescription?: string;
 
-    readonly OwnerID: number;
+    readonly Pending: boolean;
 
-    constructor(Anime: string, OwnerId: number, UsersDescription?: string) {
+    constructor(Anime: string, UsersDescription?: string) {
         this.Anime = Anime;
-        this.OwnerID = OwnerId;
         this.UsersDescription = UsersDescription;
+        this.Pending = true;
     }
 }

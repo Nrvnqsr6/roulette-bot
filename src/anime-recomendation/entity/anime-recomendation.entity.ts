@@ -4,7 +4,9 @@ import {
     Column,
     AllowNull,
     DataType,
+    HasOne,
 } from 'sequelize-typescript';
+import { TelegramUser } from 'src/telegram-user/entities/telegram-user.entity';
 
 @Table({
     timestamps: false,
@@ -19,11 +21,27 @@ export class AnimeRecomendation extends Model<AnimeRecomendation> {
     @Column(DataType.STRING)
     declare UsersDescription: string;
 
-    @AllowNull(false)
-    @Column(DataType.INTEGER)
-    declare OwnerID: number;
+    @HasOne(() => TelegramUser, {
+        foreignKey: 'ReceivedAnimeID',
+        as: 'received',
+    })
+    declare Recipient: TelegramUser;
 
-    @AllowNull(true)
-    @Column(DataType.INTEGER)
-    declare RecipientID: number;
+    @HasOne(() => TelegramUser, {
+        foreignKey: 'GivenAnimeID',
+        //as: 'given',
+    })
+    declare Owner: TelegramUser;
+
+    @AllowNull(false)
+    @Column(DataType.BOOLEAN)
+    declare Pending: boolean;
+
+    // @AllowNull(false)
+    // @Column(DataType.INTEGER)
+    // declare OwnerID: number;
+
+    // @AllowNull(true)
+    // @Column(DataType.INTEGER)
+    // declare RecipientID: number;
 }
