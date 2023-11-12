@@ -34,7 +34,7 @@ export class RecommendationWizard {
                 ' Если вы отправили название, то используйте основное название из url'
             );
         }
-        ctx.session['title'] = msg.text;
+        ctx.wizard.state['title'] = msg.text;
         ctx.wizard.next();
         return (
             'Оставьте ваш коментарий по поводу этого аниме для того, кто получит вашу рекомендацию.' +
@@ -52,10 +52,10 @@ export class RecommendationWizard {
             ctx.wizard.selectStep(2);
             return 'Не получилось найти ваше аниме. Попробуйте еще раз.';
         }
-        ctx.session['description'] = msg.text;
+        ctx.wizard.state['description'] = msg.text;
         this.createAnime(
-            ctx.session['title'],
-            ctx.session['description'],
+            ctx.wizard.state['title'],
+            ctx.wizard.state['description'],
             ctx.from.id,
         );
         ctx.scene.leave();
@@ -86,9 +86,22 @@ export class RecommendationWizard {
         description: string,
         owner: number,
     ) {
-        const animeDto = new CreateAnimeDto(title, owner, description);
+        const animeDto = new CreateAnimeDto(title, description);
         const anime = await this.animeService.create(animeDto);
         this.updateUser(owner, anime);
+    }
+
+    private async updateUser(
+        userID: number,
+        anime: AnimeRecomendation,
+    ) {
+        const updateTelegramUserDto = new UpdateTelegramUserDto();
+        updateTelegramUserDto.GivenAnimeID = anime.id;
+        const user = await this.telegramUserService.update(
+            userID,
+            updateTelegramUserDto,
+        );
+        this.animeSuggestionService.SuggestOnUserRequest(user);
     }
 
     private verifyExisting(anime: string): boolean {
@@ -96,14 +109,5 @@ export class RecommendationWizard {
             return true;
         }
         return false;
-    }
-
-    private updateUser(
-        userID: number,
-        anime: AnimeRecomendation,
-    ): Promise<TelegramUser> {
-        const updateTelegramUserDto = new UpdateTelegramUserDto();
-        updateTelegramUserDto.GivenAnime = anime.id;
-        return this.telegramUserService.update(userID, updateTelegramUserDto);
     }
 }

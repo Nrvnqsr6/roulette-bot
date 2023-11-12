@@ -10,8 +10,8 @@ export class TelegramUserUpdate {
     constructor(private readonly telegramUserService: TelegramUserService) {}
 
     @Start()
-    async startCommand(ctx: Scenes.SceneContext) {
-        ctx.session = null;
+    async startCommand(@Ctx() ctx: Scenes.WizardContext) {
+        //ctx.session = null;
         if (await this.telegramUserService.findOne(ctx.from.id))
             return 'Вы уже зарегистрованы';
         ctx.scene.enter('registration');
@@ -19,7 +19,8 @@ export class TelegramUserUpdate {
 
     @Hears(['Выбрать для рекомендации'])
     async onCreateRecomendation(@Ctx() ctx: Scenes.WizardContext) {
-        ctx.session = null;
+        //ctx.session = null;
         ctx.scene.enter('recomendation-making');
+        //console.log(ctx.session);
     }
 }

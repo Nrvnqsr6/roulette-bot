@@ -24,22 +24,22 @@ export class RegistrationWizard {
     async onService(@Ctx() ctx: Scenes.WizardContext) {
         ctx.reply('Ваш ID на этом сервисе');
         if ('data' in ctx.callbackQuery) {
-            ctx.session['service'] = ctx.callbackQuery.data;
+            ctx.wizard.state['service'] = ctx.callbackQuery.data;
             ctx.wizard.next();
         } else ctx.scene.leave();
     }
 
-    @On('text')
+    //@On('text')
     @WizardStep(3)
     async onUserId(
         @Ctx() ctx: Scenes.WizardContext,
         @Message() msg: { text: string },
     ) {
-        ctx.session['user_list_id'] = msg.text;
+        ctx.wizard.state['user_list_id'] = msg.text;
         const telegramUserDto = new CreateTelegramUserDto(
             ctx.from.id,
-            ctx.session['service'],
-            ctx.session['user_list_id'],
+            ctx.wizard.state['service'],
+            ctx.wizard.state['user_list_id'],
         );
         this.telegramUserService
             .create(telegramUserDto)
@@ -47,13 +47,15 @@ export class RegistrationWizard {
                 console.log(
                     `registration of ${user.TelegramUserID} with ${user.UserListID}`,
                 );
-                ctx.session = null;
+                ctx.reply('Регистрация прошла успешно');
+                //ctx.session = null;
                 ctx.scene.leave();
-                return 'Регистрация прошла успешно';
+                //ctx.session = null;
+                //return '';
             })
             .catch((error) => {
                 console.log(error);
-                ctx.session = null;
+                //ctx.session = null;
                 ctx.scene.leave();
                 return 'Внутренняя ошибка, попробуйте позже';
             });
