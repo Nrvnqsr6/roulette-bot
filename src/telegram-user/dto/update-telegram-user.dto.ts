@@ -9,9 +9,9 @@ export class UpdateTelegramUserDto extends PartialType(CreateTelegramUserDto) {
     UserListID?: string;
 
     // @isExisitingAnime
-    RecivedAnime?: AnimeRecomendation;
+    RecivedAnime?: number;
 
-    GivenAnime?: AnimeRecomendation;
+    GivenAnimeID?: number;
 
     isWaitingForAnime?: boolean;
 }
